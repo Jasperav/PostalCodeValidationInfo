@@ -5,7 +5,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.pcvi</groupId>
-    <artifactId>PostalCodeValidationInfo</artifactId>
+    <artifactId>PostalCodeValidationInfoService</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>Postal code validation info</name>
