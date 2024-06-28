@@ -118,11 +118,11 @@ Add New Country:
 curl -X POST "http://localhost:8080/api/v1/countries/NL"
 ```
 
-#### Example Errors
+### Example Errors
 
 Below is the full list of possible errors:
 
-##### Country Code Not Found
+#### Country Code Not Found
 
 - Status Code: 404 Not Found
 - Description: The specified country code does not exist in the database. Maybe the user needs to add it first.
@@ -135,7 +135,7 @@ Below is the full list of possible errors:
 }
 ```
 
-#### Invalid Country Code Format
+### Invalid Country Code Format
 
 - Status Code: 400 Bad Request
 - Description: The provided country code format is invalid.
