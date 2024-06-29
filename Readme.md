@@ -126,20 +126,13 @@ Below is the full list of possible errors:
 
 - Status Code: 404 Not Found
 - Description: The specified country code does not exist in the database. Maybe the user needs to add it first.
-  Response:
-
-```json
-{
-  "error": "Country code not found",
-  "message": "The country code '{}' does not exist. Did you already add it by calling the `countries` endpoint?"
-}
-```
+- Response: empty body
 
 ### Invalid Country Code Format
 
 - Status Code: 400 Bad Request
 - Description: The provided country code format is invalid.
-  Response:
+- Response:
 
 ```json
 {
@@ -152,7 +145,7 @@ Below is the full list of possible errors:
 
 - Status Code: 502 Bad Gateway
 - Description: Failed to fetch details from the external API.
-  Response:
+- Response:
 
 ```json
 {

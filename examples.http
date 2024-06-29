@@ -1,7 +1,8 @@
 # Below commands can be executed directly in IntelliJ (and probably any other mainstream IDE)
 
 ### Example output of the call which is used to add new countries
-GET https://restcountries.com/v3.1/alpha/nl?fields=postalCode
+### For a full list of possible fields, check https://gitlab.com/restcountries/restcountries/-/blob/master/FIELDS.md
+GET https://restcountries.com/v3.1/alpha/nl?fields=postalCode,name
 
 ### Example output of the call should return postal code validations
 GET http://localhost:8080/api/v1/postal-code-validations/NL
