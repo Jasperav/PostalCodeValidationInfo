@@ -1,5 +1,10 @@
 package org.pcvi.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
 import org.pcvi.model.Country;
@@ -27,6 +32,20 @@ public class PostalCodeController {
      * Will return a BAD_REQUEST response if the country wasn't added before.
      */
     @GetMapping("/{countryCode}")
+    @Operation(summary = "Returns a country including postal code validations information based on the countryCode.", responses = {
+            @ApiResponse(responseCode = "200", description = "Ok", content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = Country.class)
+            )),
+            @ApiResponse(responseCode = "404", description = "Not found, the country isn't the database. Please add it first"),
+    }, parameters = {
+            @Parameter(
+                    name = "countryCode",
+                    description = "The country code to retrieve the postal code validations for. Please use one of the following formats: cca2, ccn3, cca3 or cioc",
+                    required = true,
+                    example = "NL"
+            )
+    })
     public ResponseEntity<Country> queryCountry(@PathVariable("countryCode") @NotBlank String countryCode) {
         log.debug("Received a request to query country with country code '{}'", countryCode);
 
