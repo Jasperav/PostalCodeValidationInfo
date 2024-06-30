@@ -29,10 +29,6 @@ public class PostalCodeController {
     @Autowired
     private CountryService countryService;
 
-    /**
-     * Returns a Country based on the countryCode if it was added before in CountryController.
-     * Will return a BAD_REQUEST response if the country wasn't added before.
-     */
     @GetMapping("/{countryCode}")
     @Operation(summary = "Returns a country including postal code validations information based on the countryCode.", responses = {
             @ApiResponse(responseCode = "200", description = "Ok", content = @Content(
