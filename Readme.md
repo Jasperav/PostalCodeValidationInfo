@@ -19,6 +19,7 @@ validations on.
         - [Add New Country](#add-new-country)
     - [Example Requests](#example-requests)
     - [Example Errors](#example-errors)
+    - [Adding new field](#adding-new-field)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -91,7 +92,7 @@ See the examples.http for examples of all requests, or use the [CURL commands](#
 - URL: `/api/v1/countries/{countryCode}`
 - Method: POST
 - Query Parameter: None
-- Description: Adds a new country code which can be used later to retrieve postal code validation information
+- Description: Adds a new country code which can be used later to retrieve postal code validation information. The country code must be one of the following formats: cca2, ccn3, cca3 or cioc.
 - Response example for path parameter `countryCode` 'NL':
 
 ```json
@@ -153,6 +154,12 @@ Below is the full list of possible errors:
   "message": "Failed to fetch country details from the external API."
 }
 ```
+
+#### Adding new field
+1. Add another property in Country.java
+2. Add the field in CountryService#EXTERNAL_API_FIELDS
+3. Update the JSON in TestDeserializeCountryApiJson
+4. Run the tests to see if everything passes
 
 ### Contributing
 
