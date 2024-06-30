@@ -93,6 +93,7 @@ See the examples.http for examples of all requests, or use the [CURL commands](#
 - Method: POST
 - Query Parameter: None
 - Description: Adds a new country code which can be used later to retrieve postal code validation information. The country code must be one of the following formats: cca2, ccn3, cca3 or cioc.
+- Note that HTTP status code 201 (CREATED) is used if the country did not exist in the database yet, and 200 is used if the country was already in the database.
 - Response example for path parameter `countryCode` 'NL':
 
 ```json

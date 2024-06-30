@@ -6,6 +6,7 @@ import org.pcvi.model.Country;
 import org.pcvi.repository.CountryRepository;
 import org.slf4j.helpers.CheckReturnValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -49,7 +50,7 @@ public class CountryService {
     }
 
     /**
-     * Adds a country to the database, or returns the country from the database if it already exists.
+     * Adds a country to the database (HTTP status 201), or returns the country from the database if it already exists (HTTP status 200).
      * If the country can not be retrieved from the external API, a 400 Bad Request response will be returned.
      */
     @CheckReturnValue
@@ -95,7 +96,7 @@ public class CountryService {
 
             countryRepository.save(country);
 
-            return ResponseEntity.ok(country);
+            return ResponseEntity.status(HttpStatus.CREATED).body(country);
         } catch (HttpClientErrorException.BadRequest | HttpClientErrorException.NotFound request) {
             // I think it's a bit strange that two exceptions mean more or less the same thing in this scenario, when the user
             // requests a country which does not exist but in a proper format, NotFound is returned. Bad request is returned

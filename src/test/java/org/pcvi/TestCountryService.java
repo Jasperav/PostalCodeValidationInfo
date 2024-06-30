@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.pcvi.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.test.annotation.DirtiesContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -17,6 +20,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * The webEnvironment is not the default MOCK since it's useful in this scenario to actually test the whole flow (and short on time).
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+// See https://stackoverflow.com/q/14718088
+// This is needed to reset the H2 database for every test, it's needed because the HTTP status codes are checked, and no cache should exist
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class TestCountryService {
 
     private static final String VALID_COUNTRY_CODE = "NL";
@@ -28,8 +34,8 @@ public class TestCountryService {
     /**
      * Adds a country to the database if it's valid, and provides a mandatory check on the result
      */
-    private void addCountry(boolean shouldSucceed, @Nonnull String countryCode) {
-        assertEquals(shouldSucceed, !countryService.addCountry(countryCode).getStatusCode().isError());
+    private void addCountry(@Nonnull HttpStatusCode httpStatusCode, @Nonnull String countryCode) {
+        assertEquals(httpStatusCode, countryService.addCountry(countryCode).getStatusCode());
     }
 
     /**
@@ -43,14 +49,14 @@ public class TestCountryService {
         @Test
         @DisplayName("Tests that a valid country code can be added, and that another call to the service won't give an error (adding a country twice for whatever reason).")
         void testSuccess() {
-            addCountry(true, VALID_COUNTRY_CODE);
-            addCountry(true, VALID_COUNTRY_CODE);
+            addCountry(HttpStatus.CREATED, VALID_COUNTRY_CODE);
+            addCountry(HttpStatus.OK, VALID_COUNTRY_CODE);
         }
 
         @Test
         @DisplayName("Tests that a invalid country code can not be added.")
         void testFailure() {
-            addCountry(false, INVALID_COUNTRY_CODE);
+            addCountry(HttpStatus.BAD_REQUEST, INVALID_COUNTRY_CODE);
         }
     }
 
@@ -65,7 +71,7 @@ public class TestCountryService {
         @DisplayName("Tests that a valid country code is not in the database from the beginning, but after adding it, it can be found")
         void testSuccess() {
             queryCountry(false);
-            addCountry(true, VALID_COUNTRY_CODE);
+            addCountry(HttpStatus.CREATED, VALID_COUNTRY_CODE);
             queryCountry(true);
         }
 
