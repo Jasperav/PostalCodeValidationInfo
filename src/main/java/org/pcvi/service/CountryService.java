@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
@@ -103,6 +104,11 @@ public class CountryService {
             log.warn("Got a bad request or not found exception while trying to retrieve the country code: '{}'. This could indicate an invalid country code, but it's not clear from the bad request, so it can not be anticipated on.", countryCode, request);
 
             return ResponseEntity.badRequest().build();
+        } catch (RestClientException e) {
+            log.error("Something really bad happened, the user should try it again, the country code wasn't the problem but maybe something is wrong on our side.", e);
+
+            // I think it makes the most sense to return this status code, as an administrator should have a look at the error
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

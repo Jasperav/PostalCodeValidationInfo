@@ -133,27 +133,13 @@ Below is the full list of possible errors:
 
 - Status Code: 400 Bad Request
 - Description: The provided country code format is invalid.
-- Response:
+- Response: empty body
 
-```json
-{
-  "error": "Invalid country code format",
-  "message": "The country code '{}' is not in a valid format."
-}
-```
+#### Internal server failure
 
-#### External API Failure
-
-- Status Code: 400 Bad Request
+- Status Code: 500 Internal server error
 - Description: Failed to fetch details from the external API.
-- Response:
-
-```json
-{
-  "error": "External API failure",
-  "message": "Failed to fetch country details from the external API."
-}
-```
+- Response: empty body
 
 #### Adding new field
 1. Add another property in model **Country**
