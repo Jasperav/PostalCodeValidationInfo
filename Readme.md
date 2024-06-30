@@ -27,7 +27,6 @@ validations on.
 
 - Get postal code validation details by country code. Note that you need to add the country first (see below).
 - Add new countries for retrieving postal code validations by posting the country code to the add-country endpoint.
-  TODO: add link
 
 ### Technologies Used
 
