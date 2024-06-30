@@ -1,5 +1,6 @@
 package org.pcvi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.Entity;
@@ -26,6 +27,7 @@ public class Country {
      * This is the country code in cca2, ccn3, cca3 or cioc format, e.g. 'NL'.
      */
     @Id
+    @JsonIgnore
     private String countryCode;
 
     /**
