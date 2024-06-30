@@ -28,7 +28,7 @@ public class PostalCodeController {
      */
     @GetMapping("/{countryCode}")
     public ResponseEntity<Country> queryCountry(@PathVariable("countryCode") @NotBlank String countryCode) {
-        log.debug("Received request to query country with country code '{}'", countryCode);
+        log.debug("Received a request to query country with country code '{}'", countryCode);
 
         var country = countryService.queryCountry(countryCode);
 
