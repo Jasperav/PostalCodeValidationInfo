@@ -144,7 +144,7 @@ Below is the full list of possible errors:
 
 #### External API Failure
 
-- Status Code: 502 Bad Gateway
+- Status Code: 400 Bad Request
 - Description: Failed to fetch details from the external API.
 - Response:
 

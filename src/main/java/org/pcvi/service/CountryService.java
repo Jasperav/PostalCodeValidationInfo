@@ -49,7 +49,7 @@ public class CountryService {
 
     /**
      * Adds a country to the database, or returns the country from the database if it already exists.
-     * If the country can not be retrieved from the external API, a 502 Bad Request response will be returned.
+     * If the country can not be retrieved from the external API, a 400 Bad Request response will be returned.
      */
     @CheckReturnValue
     public ResponseEntity<Country> addCountry(@Nonnull String countryCode) {
@@ -68,18 +68,17 @@ public class CountryService {
 
     /**
      * Makes a call to the external API to retrieve a Country if a valid countryCode is passed in.
-     * If the country can not be retrieved from the external API, a 502 Bad Request response will be returned.
+     * If the country can not be retrieved from the external API, a 400 Bad Request response will be returned.
      */
     @CheckReturnValue
     private ResponseEntity<Country> queryCountryFromApi(String countryCode) {
         var restTemplate = new RestTemplate();
 
         try {
-            var requestEntityCountry = restTemplate.getForEntity(EXTERNAL_API_URL + countryCode + "?fields=" + EXTERNAL_API_FIELDS, Country.class);
+            // Don't use getForEntity, when returning the entity, the response body remains empty for some reason
+            var country = restTemplate.getForObject(EXTERNAL_API_URL + countryCode + "?fields=" + EXTERNAL_API_FIELDS, Country.class);
 
-            log.debug("Retrieved country from external API: '{}'", requestEntityCountry);
-
-            var country = requestEntityCountry.getBody();
+            log.debug("Retrieved country from external API: '{}'", country);
 
             // Don't check if the postal codes are filled, because many countries do not have postal codes, see also:
             // https://opencagedata.com/guides/how-to-think-about-postcodes-and-geocoding#:~:text=No%2C%20many%20countries%20do%20not,it%20is%20not%20widely%20used.
@@ -95,9 +94,13 @@ public class CountryService {
 
             countryRepository.save(country);
 
-            return requestEntityCountry;
-        } catch (HttpClientErrorException.BadRequest request) {
-            log.warn("Got bad request while trying to retrieve the country code: '{}'. This could indicate an invalid country code, but it's not clear from the bad request, so it can not be anticipated on.", countryCode, request);
+            return ResponseEntity.ok(country);
+        } catch (HttpClientErrorException.BadRequest | HttpClientErrorException.NotFound request) {
+            // I think it's a bit strange that two exceptions mean more or less the same thing in this scenario, when the user
+            // requests a country which does not exist but in a proper format, NotFound is returned. Bad request is returned
+            // when the format is incorrect.
+            // In any case due to time constraints, it's handled as the same in this service.
+            log.warn("Got a bad request or not found exception while trying to retrieve the country code: '{}'. This could indicate an invalid country code, but it's not clear from the bad request, so it can not be anticipated on.", countryCode, request);
 
             return ResponseEntity.badRequest().build();
         }
