@@ -39,7 +39,7 @@ public class PostalCodeController {
                     mediaType = "application/json",
                     schema = @Schema(implementation = Country.class)
             )),
-            @ApiResponse(responseCode = "404", description = "Not found, the country isn't the database. Please add it first"),
+            @ApiResponse(responseCode = "404", description = "Not found, the country isn't the database. Please add it first", content = { @Content(schema = @Schema()) }),
     }, parameters = {
             @Parameter(
                     name = "countryCode",

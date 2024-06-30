@@ -39,8 +39,8 @@ public class CountryController {
                     mediaType = "application/json",
                     schema = @Schema(implementation = Country.class)
             )),
-            @ApiResponse(responseCode = "400", description = "Bad request, the country code was is in an invalid format. Please use one of the following formats: cca2, ccn3, cca3 or cioc"),
-            @ApiResponse(responseCode = "500", description = "Internal server error occurred, please try again later")
+            @ApiResponse(responseCode = "400", description = "Bad request, the country code was is in an invalid format. Please use one of the following formats: cca2, ccn3, cca3 or cioc", content = { @Content(schema = @Schema()) }),
+            @ApiResponse(responseCode = "500", description = "Internal server error occurred, please try again later", content = { @Content(schema = @Schema()) })
     }, parameters = {
             @Parameter(
                     name = "countryCode",
