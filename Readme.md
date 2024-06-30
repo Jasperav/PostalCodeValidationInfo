@@ -30,7 +30,7 @@ validations on.
 - Add new countries for retrieving postal code validations by posting the country code to the add-country endpoint.
 
 ### API Spec
-Swagger documentation is available but not hosted publicly. You need to spin up the server, see [Getting Started](#getting-started), and then navigate to http://localhost:8080/swagger-ui/index.html 
+Swagger documentation is available but not hosted publicly. You need to spin up the server, see [Getting Started](#getting-started), and then navigate to http://localhost:8080/swagger-ui/index.html. 
 
 ### Technologies Used
 
