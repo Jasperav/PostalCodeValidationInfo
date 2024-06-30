@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotBlank;
 import lombok.extern.slf4j.Slf4j;
 import org.pcvi.model.Country;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * A Rest controller which exposes an endpoint to query a country based on a country code.
  */
+@Tag(name = "Postal code validations", description = "Retrieve postal code validations for a given country code")
 @RestController
 @RequestMapping("/api/v1/postal-code-validations")
 @Slf4j
