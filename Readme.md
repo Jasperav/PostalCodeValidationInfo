@@ -9,6 +9,7 @@ validations on.
 ### Table of Contents
 
 - [Features](#features)
+- [API Spec](#api-spec)
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
@@ -27,6 +28,9 @@ validations on.
 
 - Get postal code validation details by country code. Note that you need to add the country first (see below).
 - Add new countries for retrieving postal code validations by posting the country code to the add-country endpoint.
+
+### API Spec
+Swagger documentation is available but not hosted publicly. You need to spin up the server, see [Getting Started](#getting-started), and then navigate to http://localhost:8080/swagger-ui/index.html 
 
 ### Technologies Used
 
