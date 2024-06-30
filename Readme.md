@@ -156,9 +156,9 @@ Below is the full list of possible errors:
 ```
 
 #### Adding new field
-1. Add another property in Country.java
-2. Add the field in CountryService#EXTERNAL_API_FIELDS
-3. Update the JSON in TestDeserializeCountryApiJson
+1. Add another property in model **Country**
+2. Add the field in **CountryService**#_EXTERNAL_API_FIELDS_
+3. Update the JSON property in **TestDeserializeCountryApiJson**
 4. Run the tests to see if everything passes
 
 ### Contributing
